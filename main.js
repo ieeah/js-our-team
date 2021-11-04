@@ -9,13 +9,13 @@
 
 // reference to the card container
 const cardsContainer = document.querySelector('.team-container');
-
+const addBtn = document.getElementById('addMemberButton');
 
 const members = [
     {
         name: 'Wayne Barnett',
         role: 'Founder - CEO',
-        pic: './img/angela-caroll-chief-editor.jpg',
+        pic: './img/wayne-barnett-founder-ceo.jpg',
     },
     {
         name: 'Angela Caroll',
@@ -51,7 +51,6 @@ for ( let i = 0; i < members.length; i++) {
     const name = members[i].name;
     const role = members[i].role;
     const pic = members[i].pic;
-    console.log(name, role, pic);
 
     //generating members cards
     cardsContainer.innerHTML += 
@@ -68,10 +67,33 @@ for ( let i = 0; i < members.length; i++) {
     `;
 }
 
+addBtn.addEventListener('click', ()=> {
+    // create an empty new object
+    const newMember = {};
+    // obtaining the data in the form
+    const name = document.getElementById('name').value;
+    const role = document.getElementById('role').value;
+    const pic = document.getElementById('image').value;
+    console.log(name, role, pic);
+    // filling the new object with the form data
+    newMember.name = name;
+    newMember.role = role;
+    newMember.pic = pic;
+    // adding the newMember object to the members array
+    members.push(newMember);
+    // adding the newMember card to the DOM
+    cardsContainer.innerHTML += 
+    `
+    <div class="team-card">
+        <div class="card-image">
+            <img src="${pic}" alt="${name}">
+        </div>
+        <div class="card-text">
+            <h3>${name}</h3>
+            <p>${role}</p>
+        </div>
+    </div>
+    `;
+    console.log(members);
 
-// for (let i = 0; i < members.lengths; i++) {
-//     const card = document.createElement('div');
-//     //giving it a team-card class
-//     card.classList.add('team-card');
-//     cardsContainer.append(card);
-// }
+});
