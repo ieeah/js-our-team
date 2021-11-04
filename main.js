@@ -44,8 +44,34 @@ const members = [
     },
 ];
 
-// creare le ncard necessarie
+
+//for every item contained in the members array
+for ( let i = 0; i < members.length; i++) {
+    // obtaining the item properties
+    const name = members[i].name;
+    const role = members[i].role;
+    const pic = members[i].pic;
+    console.log(name, role, pic);
+
+    //generating members cards
+    cardsContainer.innerHTML += 
+    `
+    <div class="team-card">
+        <div class="card-image">
+            <img src="${pic}" alt="${name}">
+        </div>
+        <div class="card-text">
+            <h3>${name}</h3>
+            <p>${role}</p>
+        </div>
+    </div>
+    `;
+}
+
 
 // for (let i = 0; i < members.lengths; i++) {
-
+//     const card = document.createElement('div');
+//     //giving it a team-card class
+//     card.classList.add('team-card');
+//     cardsContainer.append(card);
 // }
