@@ -10,6 +10,9 @@
 // reference to the card container
 const cardsContainer = document.querySelector('.team-container');
 const addBtn = document.getElementById('addMemberButton');
+const inputName = document.getElementById('name');
+const inputRole = document.getElementById('role');
+const inputPic = document.getElementById('image');
 
 const members = [
     {
@@ -45,55 +48,97 @@ const members = [
 ];
 
 
-//for every item contained in the members array
-for ( let i = 0; i < members.length; i++) {
-    // obtaining the item properties
-    const name = members[i].name;
-    const role = members[i].role;
-    const pic = members[i].pic;
+// //for every item contained in the members array
+// for ( let i = 0; i < members.length; i++) {
+//     // obtaining the item properties
+//     const name = members[i].name;
+//     const role = members[i].role;
+//     const pic = members[i].pic;
 
-    //generating members cards
-    cardsContainer.innerHTML += 
-    `
-    <div class="team-card">
-        <div class="card-image">
-            <img src="${pic}" alt="${name}">
+//     //generating members cards
+//     cardsContainer.innerHTML +=
+//     `
+//     <div class="team-card">
+//         <div class="card-image">
+//             <img src="${pic}" alt="${name}">
+//         </div>
+//         <div class="card-text">
+//             <h3>${name}</h3>
+//             <p>${role}</p>
+//         </div>
+//     </div>
+//     `;
+// }
+
+// addBtn.addEventListener('click', ()=> {
+//     // create an empty new object
+//     const newMember = {};
+//     // obtaining the data in the form
+//     const name = document.getElementById('name').value;
+//     const role = document.getElementById('role').value;
+//     const pic = document.getElementById('image').value;
+//     console.log(name, role, pic);
+//     // filling the new object with the form data
+//     newMember.name = name;
+//     newMember.role = role;
+//     newMember.pic = pic;
+//     // adding the newMember object to the members array
+//     members.push(newMember);
+//     // adding the newMember card to the DOM
+//     cardsContainer.innerHTML +=
+//     `
+//     <div class="team-card">
+//         <div class="card-image">
+//             <img src="${pic}" alt="${name}">
+//         </div>
+//         <div class="card-text">
+//             <h3>${name}</h3>
+//             <p>${role}</p>
+//         </div>
+//     </div>
+//     `;
+//     console.log(members);
+
+// });
+
+drawTeam(members, cardsContainer);
+
+addBtn.addEventListener('click', function() {
+    const newMember = btnEvent(inputName, inputRole, inputPic, cardsContainer);
+    members.push(newMember);
+    drawTeam(members, cardsContainer);
+});
+
+// funzioni
+
+function drawTeam(team, container) {
+    for (let i = 0; i < team.length; i++) {
+        const newMember = team[i];
+
+        container.innerHTML += 
+        `
+        <div class="team-card">
+            <div class="card-image">
+                <img src="${newMember.pic}" alt="${newMember.name}">
+            </div>
+            <div class="card-text">
+                <h3>${newMember.name}</h3>
+                <p>${newMember.role}</p>
+            </div>
         </div>
-        <div class="card-text">
-            <h3>${name}</h3>
-            <p>${role}</p>
-        </div>
-    </div>
-    `;
+        `;
+    }
 }
 
-addBtn.addEventListener('click', ()=> {
-    // create an empty new object
-    const newMember = {};
-    // obtaining the data in the form
-    const name = document.getElementById('name').value;
-    const role = document.getElementById('role').value;
-    const pic = document.getElementById('image').value;
-    console.log(name, role, pic);
-    // filling the new object with the form data
-    newMember.name = name;
-    newMember.role = role;
-    newMember.pic = pic;
-    // adding the newMember object to the members array
-    members.push(newMember);
-    // adding the newMember card to the DOM
-    cardsContainer.innerHTML += 
-    `
-    <div class="team-card">
-        <div class="card-image">
-            <img src="${pic}" alt="${name}">
-        </div>
-        <div class="card-text">
-            <h3>${name}</h3>
-            <p>${role}</p>
-        </div>
-    </div>
-    `;
-    console.log(members);
+function btnEvent(name, role, pic, container) {
+    container.innerHTML = '';
+    let newMember = {};
+    newMember.name = name.value;
+    newMember.role = role.value;
+    newMember.pic = pic.value;
 
-});
+    name.value = '';
+    role.value = '';
+    pic.value = '';
+    return newMember;
+}
